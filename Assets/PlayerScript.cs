@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour
             v.x = 0;
         }
 
+
         // ƒWƒƒƒ“ƒv
         if (Input.GetKeyDown(KeyCode.Space))
         {
