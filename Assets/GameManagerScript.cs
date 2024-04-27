@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject block;
+    public GameObject goal;
 
     int[,] map =
     {
@@ -23,6 +25,9 @@ public class GameManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        Screen.SetResolution(1920, 1080, false);
+
         int lenY = map.GetLength(0);
         int lenX = map.GetLength(1);
 
@@ -37,13 +42,30 @@ public class GameManagerScript : MonoBehaviour
                 {
                     Instantiate(block, position, Quaternion.identity);
                 }
+                // ÉSÅ[Éãà íuê›íË
+                if (map[y, x] == 2)
+                {
+                    goal.transform.position = position;
+                }
             }
         }
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (GoalScript.isGameClear == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
+        }
     }
+
+
+
 }
+

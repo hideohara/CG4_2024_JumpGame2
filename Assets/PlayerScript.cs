@@ -15,8 +15,21 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        
+    
+
         float moveSpeed = 3.0f;
         Vector3 v = rb.velocity;
+
+        if (GoalScript.isGameClear == true)
+        {
+            v.x = 0;
+            v.y = 0;
+            rb.velocity = v;
+            return;
+        }
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
             v.x = moveSpeed;
@@ -35,6 +48,11 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+        if (GoalScript.isGameClear == true)
+        {
+            return;
+        }
+
         float jumpSpeed = 10.0f;
         Vector3 v = rb.velocity;
 
