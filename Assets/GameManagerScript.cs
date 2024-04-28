@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject block;
     public GameObject goal;
+    public GameObject coin;
+    public static int score = 0;
+    public TextMeshProUGUI scoreText;
 
     int[,] map =
     {
@@ -47,6 +51,11 @@ public class GameManagerScript : MonoBehaviour
                 {
                     goal.transform.position = position;
                 }
+                // ÉRÉCÉì
+                if (map[y, x] == 3)
+                {
+                    Instantiate(coin, position, Quaternion.identity);
+                }
             }
         }
 
@@ -63,6 +72,8 @@ public class GameManagerScript : MonoBehaviour
                 SceneManager.LoadScene("TitleScene");
             }
         }
+
+        scoreText.text = "SCORE  " + score;
     }
 
 

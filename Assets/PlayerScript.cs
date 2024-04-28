@@ -5,19 +5,36 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public Rigidbody rb;
+    public bool isBlock = true;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = gameObject.GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // プレイヤーの下方向へレイを出す
+        float distance = 0.6f;
+        Vector3 rayPosition = transform.position;
+        Ray ray = new Ray(rayPosition, Vector3.down);
+        isBlock = Physics.Raycast(ray, distance);
 
-        
-    
+        //if (isBlock == true)
+        //{
+        //    Debug.DrawRay(rayPosition, Vector3.down * distance, Color.red);
+        //}
+        //else
+        //{
+        //    Debug.DrawRay(rayPosition, Vector3.down * distance, Color.yellow);
+        //}
+
+        //Debug.DrawRay(ray.origin, ray.direction * 30, Color.red, 5.0f);
+        //Debug.DrawRay(rayPosition, distance, Color.red);
 
         float moveSpeed = 3.0f;
         Vector3 v = rb.velocity;
@@ -48,6 +65,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+
         if (GoalScript.isGameClear == true)
         {
             return;
@@ -56,12 +74,26 @@ public class PlayerScript : MonoBehaviour
         float jumpSpeed = 10.0f;
         Vector3 v = rb.velocity;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 着地していれば
+        if (isBlock == true)
         {
-            v.y = jumpSpeed;
+            // スペースキーでジャンプ
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                v.y = jumpSpeed;
+            }
         }
 
         rb.velocity = v;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "COIN")
+        {
+            other.gameObject.SetActive(false);
+            audioSource.Play();
+            GameManagerScript.score += 1;
+        }
+    }
 }
