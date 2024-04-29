@@ -11,6 +11,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject coin;
     public static int score = 0;
     public TextMeshProUGUI scoreText;
+    public GameObject goalParticle;
 
     int[,] map =
     {
@@ -50,6 +51,7 @@ public class GameManagerScript : MonoBehaviour
                 if (map[y, x] == 2)
                 {
                     goal.transform.position = position;
+                    goalParticle.transform.position = position;
                 }
                 // ÉRÉCÉì
                 if (map[y, x] == 3)

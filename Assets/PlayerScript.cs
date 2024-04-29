@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody rb;
     public bool isBlock = true;
     private AudioSource audioSource;
+    public GameObject bombParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -94,6 +95,10 @@ public class PlayerScript : MonoBehaviour
             other.gameObject.SetActive(false);
             audioSource.Play();
             GameManagerScript.score += 1;
+
+            // 爆発パーティクル発生
+            Instantiate(bombParticle, transform.position, Quaternion.identity);
+
         }
     }
 }
