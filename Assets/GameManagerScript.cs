@@ -12,6 +12,7 @@ public class GameManagerScript : MonoBehaviour
     public static int score = 0;
     public TextMeshProUGUI scoreText;
     public GameObject goalParticle;
+    public GameObject block2;
 
     int[,] map =
     {
@@ -30,7 +31,7 @@ public class GameManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         Screen.SetResolution(1920, 1080, false);
 
         int lenY = map.GetLength(0);
@@ -61,7 +62,16 @@ public class GameManagerScript : MonoBehaviour
             }
         }
 
-
+        for (int y = 0; y < lenY; y++)
+        {
+            for (int x = 0; x < lenX; x++)
+            {
+                position.x = x;
+                position.y = -y + 5;
+                position.z = 3;
+                Instantiate(block2, position, Quaternion.identity);
+            }
+        }
     }
 
     // Update is called once per frame
